@@ -21,9 +21,3 @@ const connectDBMySQL = () => {
 };
 
 module.exports = connectDBMySQL;
-
-// dbMySQL.query("SELECT * FROM users", (err, rows, fields) => {
-//     if(err) throw err;
-//     console.log("les données sont : ", rows)
-// });
-
