@@ -1,4 +1,4 @@
-const PostModel = require('../models/User');  
+const PostModel = require('../Models/User');  
 
 module.exports.setPosts = async (req, res) => {
     if(!req.body.message) {
