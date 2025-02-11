@@ -1,15 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
 import connection from "./database/mysql.js";
+import mongoClient from "./database/mongodb.js";
 
-const port = 8888;
+dotenv.config();
+
+const port = process.env.PORT || 8888;
 
 const app = express();
 
 app.use(express.json()); 
 
 app.get("/", (req, res) => {
-    res.send("bienvenue sur le LLLLsite!zzz");
+    res.send("bienvenue sur le site");
 });
 
 app.get("/test-mysql", (req, res) => {
@@ -20,6 +23,18 @@ app.get("/test-mysql", (req, res) => {
         }
         res.json({ users: results });
     });
+});
+
+app.get("/test-mongodb", async (req, res) => {
+    try {
+        const database = mongoClient.db('ecoride');
+        const collection = database.collection('your_collection_name'); // Remplacez par le nom de votre collection
+        const documents = await collection.find({}).toArray();
+        res.json({ documents });
+    } catch (err) {
+        console.error('Erreur lors de la récupération des documents MongoDB:', err);
+        res.status(500).send("Erreur lors de la récupération des documents MongoDB");
+    }
 });
 
 app.listen(port, () => {
